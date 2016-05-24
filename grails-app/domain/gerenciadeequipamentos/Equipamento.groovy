@@ -3,11 +3,10 @@ package gerenciadeequipamentos
 //-Dgeb.env=chrome test-app
 
 class Equipamento {
-
+    String nome
     String status
     String localizacao
-    String nome
-
+    boolean lista
     static constraints = {
 
         status blank: false
@@ -16,8 +15,12 @@ class Equipamento {
 
     }
 
+    def setTrueBusca(){
+        lista = true
+    }
 
-
-
+    def setFalseBusca(){
+        lista = false
+    }
 
 }
