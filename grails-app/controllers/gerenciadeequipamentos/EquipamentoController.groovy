@@ -34,13 +34,14 @@ class EquipamentoController {
     }
 
     @Transactional
-    def save(Equipamento equipamentoInstance) {
-        if (equipamentoInstance == null) {
-            notFound()
+    def save() {
+        def equipamentoInstance = new Equipamento(params)
+        if (!equipamentoInstance.save(flush: true)) {
+            //notFound()
             return
         }
 
-        if (equipamentoInstance.hasErrors()) {
+       /* if (equipamentoInstance.hasErrors()) {
             respond equipamentoInstance.errors, view:'create'
             return
         }
@@ -53,7 +54,7 @@ class EquipamentoController {
                 redirect equipamentoInstance
             }
             '*' { respond equipamentoInstance, [status: CREATED] }
-        }
+        }*/
     }
 
     def edit(Equipamento equipamentoInstance) {
@@ -112,6 +113,19 @@ class EquipamentoController {
         }
     }
 
+    def busca(String nome, String localizacao, String status, boolean lista){
+
+        def equipamento = Equipamento.findByNome(nome)
+assert equipamento
+
+        if (!(equipamento)) {
+            //flash.message = message(code: 'default.not.found.message', args: [message(code: '', default: 'Nome'), id])
+            //redirect(action: "overview")
+            return null
+        }
+        return equipamento
+    }
+
     def setLocal(Equipamento equipamento, String localizacao){
         if(equipamento != null){
             equipamento.setLocalizacao(localizacao)
@@ -124,14 +138,5 @@ class EquipamentoController {
         }
     }
 
-    def busca(String nome, String localizacao, String status, boolean lista){
-        def equipamento = Equipamento.findByNome(nome)
 
-        if (!(equipamento.getLocalizacao().equals(localizacao) && equipamento.getStatus().equals(status) && equipamento.getLista() == lista )) {
-            //flash.message = message(code: 'default.not.found.message', args: [message(code: '', default: 'Nome'), id])
-            //redirect(action: "overview")
-            return null
-        }
-        return equipamento
-    }
 }

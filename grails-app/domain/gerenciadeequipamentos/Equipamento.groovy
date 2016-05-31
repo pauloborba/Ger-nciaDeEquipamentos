@@ -7,6 +7,7 @@ class Equipamento {
     String status
     String localizacao
     boolean lista
+
     static constraints = {
 
         status blank: false
