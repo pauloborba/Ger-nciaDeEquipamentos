@@ -18,6 +18,7 @@ class EquipamentoController {
         //controlador.create()
         def equipamento = new Equipamento(nome: nome, status: status, localizacao: localizacao, lista: false)
         equipamento.properties = params
+
         equipamento.save()
     }
     def index(Integer max) {
@@ -34,26 +35,14 @@ class EquipamentoController {
     }
 
     @Transactional
-    def save(Equipamento equipamentoInstance) {
-        if (equipamentoInstance == null) {
-            notFound()
+    def save() {
+        def equipamentoInstance = new Equipamento(params)
+        if (!equipamentoInstance.save(flush:true)) {
+            render ( view:"create", model:[equipamentoInstance: equipamentoInstance] )
             return
         }
-
-        if (equipamentoInstance.hasErrors()) {
-            respond equipamentoInstance.errors, view:'create'
-            return
-        }
-
-        equipamentoInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
-                redirect equipamentoInstance
-            }
-            '*' { respond equipamentoInstance, [status: CREATED] }
-        }
+        flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
+        redirect(action: "show", id: equipamentoInstance.id)
     }
 
     def edit(Equipamento equipamentoInstance) {
@@ -123,7 +112,17 @@ class EquipamentoController {
             //redirect(action: "overview")
         }
     }
-
+    def updateStatus(Equipamento equipamento, String status){
+        if(equipamento != null){
+            equipamento.setStatus(status)
+            equipamento.save(flush:true)
+            flash.message = "Success"
+            //render("overview")
+        }else {
+            flash.message = "Error"
+            //redirect(action: "overview")
+        }
+    }
     def busca(String nome, String localizacao, String status, boolean lista){
         def equipamento = Equipamento.findByNome(nome)
 

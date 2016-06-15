@@ -23,5 +23,7 @@ class TestDataAndOperations {
     static public void modificarLocalizacao(Equipamento equipamento, String novaLocalizacao, EquipamentoController controlador){
         controlador.setLocal(equipamento, novaLocalizacao)
     }
-
+    static public void updateStatus(Equipamento equipamento, String novoStatus, EquipamentoController controlador){
+        controlador.updateStatus(equipamento, novoStatus)
+    }
 }
