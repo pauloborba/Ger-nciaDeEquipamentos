@@ -22,3 +22,17 @@ When(~/^eu tento alterar o status de "([^"]*)" para "([^"]*)"$/) { String nome, 
 Then(~/^o sistema altera os dados de "([^"]*)" para "([^"]*)"$/) { String nome, status ->
     assert Equipamento.findByNome(nome).status == status
 }
+
+//scenario de gui
+Given(~/^eu estou no menu "([^"]*)"$/) { String arg1 ->
+
+}
+When(~/^eu seleciono a opcao "([^"]*)"$/) { String arg1 ->
+
+}
+And(~/^eu preencho os formularios de atualizacao de "([^"]*)"$/) { String arg1 ->
+
+}
+Then(~/^eu vejo o "([^"]*)" ser atualizado$/) { String arg1 ->
+
+}
