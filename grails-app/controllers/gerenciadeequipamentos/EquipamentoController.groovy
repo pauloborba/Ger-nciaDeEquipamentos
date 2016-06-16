@@ -13,9 +13,7 @@ class EquipamentoController {
     // provavelmente simula a chamada dessa ação como um GET
 
     def createEquipamento(String nome, String status, String localizacao){
-        //controlador.params << [nome: nome, status: status, localizacao: localizacao, lista: false]
-        //controlador.request.request.setContent(new byte[1000])
-        //controlador.create()
+
         def equipamento = new Equipamento(nome: nome, status: status, localizacao: localizacao, lista: false)
         equipamento.properties = params
         equipamento.save()
@@ -38,23 +36,10 @@ class EquipamentoController {
         def equipamentoInstance = new Equipamento(params)
         if (!equipamentoInstance.save(flush: true)) {
             //notFound()
-            return
+           // return
         }
 
-       /* if (equipamentoInstance.hasErrors()) {
-            respond equipamentoInstance.errors, view:'create'
-            return
-        }
 
-        equipamentoInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
-                redirect equipamentoInstance
-            }
-            '*' { respond equipamentoInstance, [status: CREATED] }
-        }*/
     }
 
     def edit(Equipamento equipamentoInstance) {
@@ -113,10 +98,9 @@ class EquipamentoController {
         }
     }
 
-    def busca(String nome, String localizacao, String status, boolean lista){
+    def busca(String nome){
 
         def equipamento = Equipamento.findByNome(nome)
-assert equipamento
 
         if (!(equipamento)) {
             //flash.message = message(code: 'default.not.found.message', args: [message(code: '', default: 'Nome'), id])

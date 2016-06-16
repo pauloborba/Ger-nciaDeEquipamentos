@@ -6,7 +6,12 @@ class Equipamento {
     String nome
     String status
     String localizacao
-    boolean lista
+
+    public Equipamento(String nome, String status, String localizacao){
+        this.nome = nome;
+        this.status = status;
+        this.localizacao = localizacao;
+    }
 
     static constraints = {
 
@@ -14,14 +19,6 @@ class Equipamento {
         localizacao blank: false
         nome blank: false
 
-    }
-
-    def setTrueBusca(){
-        lista = true
-    }
-
-    def setFalseBusca(){
-        lista = false
     }
 
 }

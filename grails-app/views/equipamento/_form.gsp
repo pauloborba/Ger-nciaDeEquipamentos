@@ -29,12 +29,3 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: equipamentoInstance, field: 'lista', 'error')} ">
-	<label for="lista">
-		<g:message code="equipamento.lista.label" default="Lista" />
-		
-	</label>
-	<g:checkBox name="lista" value="${equipamentoInstance?.lista}" />
-
-</div>
-

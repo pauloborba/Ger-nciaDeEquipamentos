@@ -6,7 +6,13 @@
   Scenario: Alteracao de localizacao do equipamento
     Given que o sistema possui o equipamento "monitor" com localizacao "armazem" e com status "funcionando"
     When eu tento buscar o equipamento de nome "monitor", localizacao "armazem", status "funcionando" e lista "false"
-    Then o equipamento "monitor" de localizacao "armazem" tem a localizacao alterada para "grad3"
+    Then o equipamento "monitor" tem a localizacao alterada para "laboratorio"
+
+  Scenario: Exibição de equipamentos por localizacao
+    Given eu criei os "equipamento1" e "equipamento2"
+    And que estou na tela de "Visualizar Equipamentos"
+    When Seleciono a sala "laboratorio"
+    Then Eu consigo ver uma lista com todos os "nomes" e "status" que estao na localizacao "laboratorio"
 
     @ignore
   Scenario: Equipamento encaminhado
@@ -38,8 +44,5 @@
     Then Eu consigo ver Codigo "Microfone 2013/8432", Status de localizacao "B-04" e Estado do aparelho "Funcionando" na tela
     And Eu altero o Status de localizacao para "Armazem"
 
-    @ignore
-  Scenario: Busca de aparelhos por sala
-    Given Estou na tela de "Equipamentos"
-    When Seleciono a sala "Laboratorio2"
-    Then Eu consigo ver uma lista com todos os "Codigos" e "Estado do aparelho" que estao na sala "Laboratorio2"
+
+

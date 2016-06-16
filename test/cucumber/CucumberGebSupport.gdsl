@@ -1,6 +1,4 @@
-/**
- * Enables code completion for Geb inside Cucumber step implementations.
- */
+
 def forwardedMethods = ["go", "to", "via", "at",
                         "waitFor",
                         "withAlert", "withNoAlert", "withConfirm", "withNoConfirm",

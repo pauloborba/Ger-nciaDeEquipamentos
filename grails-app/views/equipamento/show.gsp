@@ -50,15 +50,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${equipamentoInstance?.lista}">
-				<li class="fieldcontain">
-					<span id="lista-label" class="property-label"><g:message code="equipamento.lista.label" default="Lista" /></span>
-					
-						<span class="property-value" aria-labelledby="lista-label"><g:formatBoolean boolean="${equipamentoInstance?.lista}" /></span>
-					
-				</li>
-				</g:if>
-			
 			</ol>
 			<g:form url="[resource:equipamentoInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
