@@ -50,11 +50,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${equipamentoInstance?.lista}">
+				<g:if test="${equipamentoInstance?.data}">
 				<li class="fieldcontain">
-					<span id="lista-label" class="property-label"><g:message code="equipamento.lista.label" default="Lista" /></span>
+					<span id="data-label" class="property-label"><g:message code="equipamento.data.label" default="Data" /></span>
 					
-						<span class="property-value" aria-labelledby="lista-label"><g:formatBoolean boolean="${equipamentoInstance?.lista}" /></span>
+						<span class="property-value" aria-labelledby="data-label"><g:formatDate date="${equipamentoInstance?.data}" /></span>
 					
 				</li>
 				</g:if>

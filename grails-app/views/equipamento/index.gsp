@@ -30,7 +30,7 @@
 					
 						<g:sortableColumn property="nome" title="${message(code: 'equipamento.nome.label', default: 'Nome')}" />
 					
-						<g:sortableColumn property="lista" title="${message(code: 'equipamento.lista.label', default: 'Lista')}" />
+						<g:sortableColumn property="data" title="${message(code: 'equipamento.data.label', default: 'Data')}" />
 					
 					</tr>
 				</thead>
@@ -44,7 +44,7 @@
 					
 						<td>${fieldValue(bean: equipamentoInstance, field: "nome")}</td>
 					
-						<td><g:formatBoolean boolean="${equipamentoInstance.lista}" /></td>
+						<td><g:formatDate date="${equipamentoInstance.data}" /></td>
 					
 					</tr>
 				</g:each>

@@ -6,21 +6,17 @@ class Equipamento {
     String nome
     String status
     String localizacao
-    boolean lista
+    Date data
     static constraints = {
 
         status blank: false
         localizacao blank: false
         nome blank: false
-
+        data blank: false
+        data null: false
     }
-
-    def setTrueBusca(){
-        lista = true
+    static mapping = {
+        sort "data"
+        sort data: "asc"
     }
-
-    def setFalseBusca(){
-        lista = false
-    }
-
 }
