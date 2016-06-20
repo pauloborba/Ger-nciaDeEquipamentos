@@ -1,4 +1,4 @@
-package gerenciadeequipamentos
+    package gerenciadeequipamentos
 
 //-Dgeb.env=chrome test-app
 

@@ -14,9 +14,9 @@ class EquipamentoController {
 
     def createEquipamento(String nome, String status, String localizacao){
 
-        def equipamento = new Equipamento(nome: nome, status: status, localizacao: localizacao, lista: false)
-        equipamento.properties = params
-        equipamento.save()
+       // def equipamento = new Equipamento(nome: nome, status: status, localizacao: localizacao  )
+      //  equipamento.properties = params
+      //  equipamento.save()
     }
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -35,11 +35,12 @@ class EquipamentoController {
     def save() {
         def equipamentoInstance = new Equipamento(params)
         if (!equipamentoInstance.save(flush: true)) {
-            //notFound()
-           // return
+            flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
+            redirect(action: "show", id: equipamentoInstance.id)
         }
 
-
+        flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
+        redirect(action: "show", id: equipamentoInstance.id)
     }
 
     def edit(Equipamento equipamentoInstance) {
@@ -97,7 +98,32 @@ class EquipamentoController {
             '*'{ render status: NOT_FOUND }
         }
     }
+    def buscaAvancada(String nome, String status, String localizacao) {
+        def result
+        printf("oioi")
+        if (nome.equals("") && status.equals("") && !localizacao.equals("")) {
+            result = Equipamento.findByLocalizacao(localizacao)
 
+        } else if (nome.equals("") && !status.equals("") && localizacao.equals("")) {
+            result = Equipamento.findByStatus(status)
+
+        } else if (!nome.equals("") && status.equals("") && localizacao.equals("")) {
+            result = Equipamento.findByNome(nome)
+
+        }else if (nome.equals("") && !status.equals("") && !localizacao.equals("")) {
+            result = Equipamento.findByStatusAndLocalizacao(status, localizacao)
+
+        }else if (!nome.equals("") && status.equals("") && !localizacao.equals("")) {
+            result = Equipamento.findByNomeAndLocalizacao(nome, localizacao)
+
+        }else if (!nome.equals("") && !status.equals("") && localizacao.equals("")) {
+            result = Equipamento.findByNomeAndStatus(nome, status)
+
+        }else if (!nome.equals("") && !status.equals("") && !localizacao.equals("")){
+            result = Equipamento.findByNomeAndStatusAndLocalizacao(nome, status, localizacao)
+        }
+        return result
+    }
     def busca(String nome){
 
         def equipamento = Equipamento.findByNome(nome)
