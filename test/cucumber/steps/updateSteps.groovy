@@ -12,7 +12,7 @@ this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 def controlador = new EquipamentoController()
 Given(~/^o sistema possui o equipamento "([^"]*)" cadastrado$/) { String nome ->
-    Equipamento equipamento = TestDataAndOperations.createEquipamento(nome, "status","localização", controlador)
+    Equipamento equipamento = TestDataAndOperations.createEquipamento(nome, "status","localização",Date.parse("dd-MM-yyyy","06-07-2016"), controlador)
     assert Equipamento.findByNome(nome) != null
 }
 When(~/^eu tento alterar o status de "([^"]*)" para "([^"]*)"$/) { String nome, status ->
