@@ -3,19 +3,17 @@ package steps
 import gerenciadeequipamentos.ArmazemController
 import gerenciadeequipamentos.Equipamento
 import gerenciadeequipamentos.EquipamentoController
-
+import gerenciadeequipamentos.Armazem
 
 class TestDataAndOperations {
 
 
-    static public void createArmazem(String nome, int lotacao, int areaUtil, ArmazemController controlador){
-
+    static public def  createArmazem(String nome, int lotacao, int areaUtil, ArmazemController controlador){
         controlador.params << [nome:nome, areaUtil:areaUtil, lotacao:lotacao, cheio:false]
         controlador.save()
         controlador.response.reset()
-
     }
-    static public void createEquipamento(String nome, String status, String localizacao,Date data , EquipamentoController controlador){
+    static public def createEquipamento(String nome, String status, String localizacao,Date data , EquipamentoController controlador){
         controlador.params << [nome:nome, status:status, localizacao:localizacao, data:data]
         controlador.save()
         controlador.response.reset()

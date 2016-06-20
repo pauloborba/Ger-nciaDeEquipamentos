@@ -44,8 +44,6 @@ class EquipamentoController {
     def save() {
 
         def equipamentoInstance = new Equipamento(params)
-
-
         if (!ArmazemController.verificaVagas(params.localizacao)) {
             if (!equipamentoInstance.save(flush: true)) {
                 render(view: "create", model: [equipamentoInstance: equipamentoInstance])

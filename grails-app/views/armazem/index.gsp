@@ -23,29 +23,18 @@
 			<table>
 			<thead>
 					<tr>
-					
-						<g:sortableColumn property="areaUtil" title="${message(code: 'armazem.areaUtil.label', default: 'Area Util')}" />
-					
-						<g:sortableColumn property="lotacao" title="${message(code: 'armazem.lotacao.label', default: 'Lotacao')}" />
-					
-						<g:sortableColumn property="cheio" title="${message(code: 'armazem.cheio.label', default: 'Cheio')}" />
-					
 						<g:sortableColumn property="nome" title="${message(code: 'armazem.nome.label', default: 'Nome')}" />
-					
+						<g:sortableColumn property="areaUtil" title="${message(code: 'armazem.areaUtil.label', default: 'Area Util')}" />
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${armazemInstanceList}" status="i" var="armazemInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr class="${ armazemInstance.cheio == false ? 'clear' : 'full'}">
+
+						<td><g:link action="show" id="${armazemInstance.id}">${fieldValue(bean: armazemInstance, field: "nome")}</g:link></td>
 					
-						<td><g:link action="show" id="${armazemInstance.id}">${fieldValue(bean: armazemInstance, field: "areaUtil")}</g:link></td>
-					
-						<td>${fieldValue(bean: armazemInstance, field: "lotacao")}</td>
-					
-						<td><g:formatBoolean boolean="${armazemInstance.cheio}" /></td>
-					
-						<td>${fieldValue(bean: armazemInstance, field: "nome")}</td>
-					
+						<td>${fieldValue(bean: armazemInstance, field: "areaUtil")}</td>
+
 					</tr>
 				</g:each>
 				</tbody>

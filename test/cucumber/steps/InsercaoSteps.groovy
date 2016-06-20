@@ -13,8 +13,14 @@ this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 def EquipamentoController controladorEquipamento;
 def ArmazemController controladorArmazem;
+
+
 Given(~/^O sistema possui o armazem "([^"]*)" com lotacao incompleta$/) { String armazem ->
-    TestDataAndOperations.createArmazem(armazem, 0,10, controladorArmazem)
+    int a = 10
+    int b = 01
+    controladorArmazem.params << [nome: armazem, areaUtil: a, lotacao: b, cheio: false]
+    controladorArmazem.save()
+    controladorArmazem.response.reset()
     assert !Armazem.findByNome(armazem).cheio
 }
 And(~/^O sistema nao possui o equipamento "([^"]*)"$/) { String equipamento ->

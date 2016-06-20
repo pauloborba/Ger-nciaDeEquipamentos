@@ -14,12 +14,14 @@ class ArmazemController {
         def armazem = new Armazem(nome: nome, areaUtil: areaUtil, lotacao:lotacao, cheio: cheio )
         armazem.properties = params
         armazem.save()
+
     }
 
     //metoro para delecao de equipamento
     static def diminuiLotacao(String localizacao){
         //pega o tamanho de lotacao e decrementa em 1
         Armazem.findByNome(localizacao).setLotacao(Armazem.findByNome(localizacao).getLotacao()-1)
+        Armazem.findByNome(localizacao).setCheio(false)
     }
 
     //metodo para verificar se o deposito dado esta cheio
@@ -67,11 +69,10 @@ class ArmazemController {
         if (!armazemInstance.save(flush: true)) {
             render(view: "create", model: [armazemInstance: armazemInstance])
             return
-        } else {
-            flash.message = message(code: 'default.created.message', args: [message(code: 'armazem.label', default: 'Armazem'), armazemInstance.id])
-            redirect(action: "show", id: armazemInstance.id)
         }
 
+        flash.message = message(code: 'default.created.message', args: [message(code: 'Armazem.label', default: 'Armazem'), armazemInstance.id])
+        redirect(action: "show", id: armazemInstance.id)
         //armazemInstance.save flush:true
 
 
