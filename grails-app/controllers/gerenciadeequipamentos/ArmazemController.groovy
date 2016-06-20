@@ -30,26 +30,36 @@ class ArmazemController {
         if(Armazem.findByNome(localizacao)) {
             //o metodo atualizaLotacao alem de adicionar mais 1 a lotacao do deposito, ele tbm conserta
             // os possiveis erros de validacao da entrada :D
-            incrementaLotacao(localizacao)
-            return Armazem.findByNome(localizacao).getCheio()
+
+            return incrementaLotacao(localizacao)
         }else { //se não entrou no laco, o local nao existe, portanto o sistema agira
             // da mesma forma caso estivesse cheio, nao armazenando o equipamento
             return true
         }
     }
-    static def incrementaLotacao(String nome){
+    static def boolean incrementaLotacao(String nome){
         //se a area util for menor que a lotacao, sinal que ja esta cheio e o problema vem desde a insercao do armazem
         //eu nao consegui produzir o validator na Domain sem bugar o sistema como na documentacao do grails por isso este passo eh necessario D:
         if(Armazem.findByNome(nome).getAreaUtil()<= Armazem.findByNome(nome).getLotacao()) {
             //resolvemos aqui o erro da insercao e deixamos tudo nos conformes para referencias futuras ao armazem :D
             Armazem.findByNome(nome).setLotacao(Armazem.findByNome(nome).getAreaUtil())
             Armazem.findByNome(nome).setCheio(true)
+            return true
         }
         //caso a lotacao seja menor que a area util, simplesmente adicionamos
         else {
             Armazem.findByNome(nome).setLotacao(Armazem.findByNome(nome).getLotacao() + 1)
+            verificaLotacao(nome)
+            return false
         }
     }
+    static def void verificaLotacao(String nome){
+        //se seta o cheio pra true caso o ultimo equipamento tenha enchido o armazem
+        if(Armazem.findByNome(nome).getAreaUtil()== Armazem.findByNome(nome).getLotacao()) {
+           Armazem.findByNome(nome).setCheio(true)
+        }
+    }
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Armazem.list(params), model:[armazemInstanceCount: Armazem.count()]

@@ -11,16 +11,12 @@ import gerenciadeequipamentos.EquipamentoController
 
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
-def EquipamentoController controladorEquipamento;
-def ArmazemController controladorArmazem;
+def controladorEquipamento = new EquipamentoController();
+def controladorArmazem = new ArmazemController();
 
 
 Given(~/^O sistema possui o armazem "([^"]*)" com lotacao incompleta$/) { String armazem ->
-    int a = 10
-    int b = 01
-    controladorArmazem.params << [nome: armazem, areaUtil: a, lotacao: b, cheio: false]
-    controladorArmazem.save()
-    controladorArmazem.response.reset()
+    TestDataAndOperations.createArmazem(armazem,1, 10, controladorArmazem)
     assert !Armazem.findByNome(armazem).cheio
 }
 And(~/^O sistema nao possui o equipamento "([^"]*)"$/) { String equipamento ->
@@ -36,7 +32,7 @@ And(~/^Atualiza a lotacao do "([^"]*)"$/) { String armazem ->
     assert Armazem.findByNome(armazem).getLotacao() != 0
 }
 Given(~/^O sistema possui o armazem "([^"]*)" com lotacao completa$/) { String armazem ->
-
+    TestDataAndOperations.createArmazemCheio(armazem,10, 10, controladorArmazem)
     assert Armazem.findByNome(armazem).getCheio()
 }
 Then(~/^O sistema nao armazena o equipamento "([^"]*)"$/) { String equipamento->

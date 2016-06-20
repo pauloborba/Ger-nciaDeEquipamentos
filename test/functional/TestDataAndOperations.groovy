@@ -13,6 +13,14 @@ class TestDataAndOperations {
         controlador.save()
         controlador.response.reset()
     }
+
+    static public def  createArmazemCheio(String nome, int lotacao, int areaUtil, ArmazemController controlador){
+        controlador.params << [nome:nome, areaUtil:areaUtil, lotacao:lotacao, cheio:true]
+        controlador.save()
+        controlador.response.reset()
+    }
+
+
     static public def createEquipamento(String nome, String status, String localizacao,Date data , EquipamentoController controlador){
         controlador.params << [nome:nome, status:status, localizacao:localizacao, data:data]
         controlador.save()
