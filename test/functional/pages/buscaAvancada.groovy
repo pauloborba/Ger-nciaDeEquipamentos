@@ -17,7 +17,7 @@ class buscaAvancada extends Page {
         $("form").status = status
         $("form").localizacao = localizacao
         $("input", name: "buscaAvancada").click()
-        //$("input", name: "create").click()
+
     }
 
     def resultado(Equipamento resultado){

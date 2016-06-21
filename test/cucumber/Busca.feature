@@ -4,7 +4,7 @@
   so that eu possa controlar o tempo de vida e solicitações sobre os equipamentos
 
     Scenario: Busca avancada
-      Given que o sistema possui o equipamento1
+      Given que o sistema possui equipamentos cadastrados
       When eu tento buscar equipamentos pelo seu status "funcionando" e localizacao "grad2"
       Then eu recebo uma lista com todos os equipamentos que possuem o Status e a Localizacao selecionada
 
