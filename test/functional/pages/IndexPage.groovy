@@ -9,15 +9,26 @@ class IndexPage extends Page {
     static url = "/GerenciaDeEquipamentos/equipamento/index"
 
     static at = {
-        title ==~ /Equipamento Listagem/
+        title ==~ /Equipamento List/
     }
 
-    def selectButton(String nome){
-        $("form").input1 = nome
-        $("input", name: "Busca").click()
+    def buscar(String nome, String status, String localizacao){
+        $("form").nome = nome
+        $("form").status = status
+        $("form").localizacao = localizacao
+        $("input", name: "buscaAvancada").click()
     }
 
+    boolean verify(){
+        def var
+        if($("form").toList().isEmpty()){
 
+            var = false
+        } else{
+            var = true
+        }
+        return var
+    }
 
 
 }

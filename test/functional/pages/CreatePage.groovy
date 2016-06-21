@@ -14,7 +14,7 @@ class CreatePage extends Page{
     }
 
 
-    def boolean criarEquipamento(String nome){
+    def boolean criarEquipamento(String nome, String status, String localizacao){
         $("form").nome = nome
         $("form").status = "Funcionando"
         $("form").localizacao = "Grad4"

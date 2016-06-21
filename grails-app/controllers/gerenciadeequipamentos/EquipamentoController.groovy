@@ -98,31 +98,48 @@ class EquipamentoController {
             '*'{ render status: NOT_FOUND }
         }
     }
-    def buscaAvancada(String nome, String status, String localizacao) {
-        def result
-        printf("oioi")
-        if (nome.equals("") && status.equals("") && !localizacao.equals("")) {
-            result = Equipamento.findByLocalizacao(localizacao)
+    def resultados = []
 
-        } else if (nome.equals("") && !status.equals("") && localizacao.equals("")) {
-            result = Equipamento.findByStatus(status)
+    def buscaAvancada() {
+        resultados = []
 
-        } else if (!nome.equals("") && status.equals("") && localizacao.equals("")) {
-            result = Equipamento.findByNome(nome)
+        if (params.nome.equals("") && params.status.equals("") && !params.localizacao.equals("")) {
+            resultados.add(Equipamento.findByLocalizacao(params.localizacao))
 
-        }else if (nome.equals("") && !status.equals("") && !localizacao.equals("")) {
-            result = Equipamento.findByStatusAndLocalizacao(status, localizacao)
+        } else if (params.nome.equals("") && !params.status.equals("") && params.localizacao.equals("")) {
+            resultados.add(Equipamento.findByStatus(params.status))
 
-        }else if (!nome.equals("") && status.equals("") && !localizacao.equals("")) {
-            result = Equipamento.findByNomeAndLocalizacao(nome, localizacao)
+        } else if (!params.nome.equals("") && params.status.equals("") && params.localizacao.equals("")) {
+            resultados.add(Equipamento.findByNome(params.nome))
 
-        }else if (!nome.equals("") && !status.equals("") && localizacao.equals("")) {
-            result = Equipamento.findByNomeAndStatus(nome, status)
+        }else if (params.nome.equals("") && !params.status.equals("") && !params.localizacao.equals("")) {
+            resultados.add(Equipamento.findByStatusAndLocalizacao(params.status, params.localizacao))
 
-        }else if (!nome.equals("") && !status.equals("") && !localizacao.equals("")){
-            result = Equipamento.findByNomeAndStatusAndLocalizacao(nome, status, localizacao)
+        }else if (!params.nome.equals("") && params.status.equals("") && !params.localizacao.equals("")) {
+            resultados.add(Equipamento.findByNomeAndLocalizacao(params.nome, params.localizacao))
+
+        }else if (!params.nome.equals("") && !params.status.equals("") && params.localizacao.equals("")) {
+            resultados.add(Equipamento.findByNomeAndStatus(params.nome, params.status))
+
+        }else if (!params.nome.equals("") && !params.status.equals("") && !params.localizacao.equals("")){
+            resultados.add(Equipamento.findByNomeAndStatusAndLocalizacao(params.nome, params.status, params.localizacao))
         }
-        return result
+
+
+        if(resultados.isEmpty()){
+
+            redirect(action: "index")
+        }else{
+            redirect(action: "resultados")
+        }
+
+
+        return resultados
+    }
+    def resultados(Integer max){
+
+        params.max = Math.min(max ?: 10, 100)
+        respond resultados, model:[equipamentoInstanceCount: Equipamento.count()]
     }
     def busca(String nome){
 
