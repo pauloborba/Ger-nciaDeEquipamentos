@@ -104,31 +104,32 @@ class EquipamentoController {
         resultados = []
 
         if (params.nome.equals("") && params.status.equals("") && !params.localizacao.equals("")) {
-            resultados.add(Equipamento.findByLocalizacao(params.localizacao))
+
+            resultados.addAll(Equipamento.findAllByLocalizacao(params.localizacao))
 
         } else if (params.nome.equals("") && !params.status.equals("") && params.localizacao.equals("")) {
-            resultados.add(Equipamento.findByStatus(params.status))
+            resultados.addAll(Equipamento.findAllByStatus(params.status))
 
         } else if (!params.nome.equals("") && params.status.equals("") && params.localizacao.equals("")) {
-            resultados.add(Equipamento.findByNome(params.nome))
+            resultados.addAll(Equipamento.findAllByNome(params.nome))
 
         }else if (params.nome.equals("") && !params.status.equals("") && !params.localizacao.equals("")) {
-            resultados.add(Equipamento.findByStatusAndLocalizacao(params.status, params.localizacao))
+            resultados.addAll(Equipamento.findAllByStatusAndLocalizacao(params.status, params.localizacao))
 
         }else if (!params.nome.equals("") && params.status.equals("") && !params.localizacao.equals("")) {
-            resultados.add(Equipamento.findByNomeAndLocalizacao(params.nome, params.localizacao))
+            resultados.addAll(Equipamento.findAllByNomeAndLocalizacao(params.nome, params.localizacao))
 
         }else if (!params.nome.equals("") && !params.status.equals("") && params.localizacao.equals("")) {
-            resultados.add(Equipamento.findByNomeAndStatus(params.nome, params.status))
+            resultados.addAll(Equipamento.findAllByNomeAndStatus(params.nome, params.status))
 
         }else if (!params.nome.equals("") && !params.status.equals("") && !params.localizacao.equals("")){
-            resultados.add(Equipamento.findByNomeAndStatusAndLocalizacao(params.nome, params.status, params.localizacao))
+            resultados.addAll(Equipamento.findAllByNomeAndStatusAndLocalizacao(params.nome, params.status, params.localizacao))
         }
 
 
         if(resultados.isEmpty()){
-
             redirect(action: "index")
+
         }else{
             redirect(action: "resultados")
         }

@@ -20,7 +20,13 @@ class IndexPage extends Page {
     }
 
     boolean verify(){
-        $("tr", class: "clear").has("a",text: armazem)
+        def var
+        if($("form").toList().isEmpty()){
+            var = false
+        } else{
+            var = true
+        }
+        return var
     }
 
 
