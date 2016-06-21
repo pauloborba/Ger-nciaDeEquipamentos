@@ -3,11 +3,13 @@
   I quero gerenciar a localizacao e o descarte de aparelhos
   so that eu possa controlar o tempo de vida e solicitações sobre os equipamentos
 
+    @ignore
   Scenario: Alteracao de localizacao do equipamento
     Given que o sistema possui o equipamento "monitor" com localizacao "armazem" e com status "funcionando"
     When eu tento buscar o equipamento de nome "monitor", localizacao "armazem", status "funcionando" e lista "false"
     Then o equipamento "monitor" tem a localizacao alterada para "laboratorio"
 
+    @ignore
   Scenario: Exibição de equipamentos por localizacao
     Given eu criei os "equipamento1" e "equipamento2"
     And que estou na tela de "Visualizar Equipamentos"

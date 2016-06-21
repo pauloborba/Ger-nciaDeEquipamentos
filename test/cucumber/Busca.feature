@@ -10,6 +10,5 @@
 
     Scenario: Exibição de equipamentos pela busca avancada
       Given que estou na tela de busca avancada
-      When seleciono os atributos nos campos de nome, status e localizacao
-      And solicito a busca
+      When seleciono os atributos nos campos de nome, status, localizacao e solicito a busca
       Then consigo ver a lista com o resultado da busca

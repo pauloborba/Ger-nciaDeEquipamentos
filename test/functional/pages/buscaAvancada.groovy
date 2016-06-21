@@ -1,6 +1,8 @@
 package pages
 
+
 import geb.Page
+import gerenciadeequipamentos.Equipamento
 
 class buscaAvancada extends Page {
     static url = "/GerenciaDeEquipamentos/equipamento/buscaAvancada/"
@@ -9,8 +11,16 @@ class buscaAvancada extends Page {
         title ==~ /Busca Avançada/
     }
 
-    boolean busca(equipamento) {
-        $("form").nome = vaga
-        $("input", name: "buscar").click()
+    def buscar(String nome, String status, String localizacao){
+
+        $("form").nome = nome
+        $("form").status = status
+        $("form").localizacao = localizacao
+        $("input", name: "buscaAvancada").click()
+        //$("input", name: "create").click()
+    }
+
+    def resultado(Equipamento resultado){
+        $("form").resultado = resultado
     }
 }

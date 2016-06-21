@@ -8,7 +8,7 @@ import gerenciadeequipamentos.Equipamento
 import gerenciadeequipamentos.EquipamentoController
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
-
+import pages.buscaAvancada
 def result
 
 Given(~/^que o sistema possui o equipamento1$/) { ->
@@ -36,22 +36,18 @@ Then(~/^eu recebo uma lista com todos os equipamentos que possuem o Status e a L
 }
 
 Given(~/^que estou na tela de busca avancada$/) {  ->
-    def equipamento = new Equipamento("monitor", "funcionando", "grad2")
 
     to buscaAvancada
     at buscaAvancada
-    page.busca(equipamento)
-    at VerPage
-    to CreatePage
-    at CreatePage
-    page.criarVaga(vaga2)
-}
-When(~/^seleciono os atributos nos campos de nome, status e localizacao$/) { ->
 
 }
-And(~/^solicito a busca$/) { ->
-
+When(~/^seleciono os atributos nos campos de nome, status, localizacao e solicito a busca$/) { ->
+    page.buscar("","funcionando","")
 }
+
 Then(~/^consigo ver a lista com o resultado da busca$/) { ->
-
+    to buscaAvancada
+    at buscaAvancada
+    def controlador = new EquipamentoController()
+    page.resultado(controlador.buscaAvancada("", status, localizacao))
 }

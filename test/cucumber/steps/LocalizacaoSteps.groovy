@@ -1,5 +1,6 @@
 package steps
 
+/*import cucumber.steps.TestDataAndOperations
 import gerenciadeequipamentos.Equipamento
 import gerenciadeequipamentos.EquipamentoController
 
@@ -12,8 +13,8 @@ def equipamento
 
 Given(~/^que o sistema possui o equipamento "([^"]*)" com localizacao "([^"]*)" e com status "([^"]*)"$/) { String nome, String localizacao, String status ->
     // Write code here that turns the phrase above into concrete actions
-
-    TestDataAndOperations.createEquipamento(nome, status, localizacao, controlador)
+    equipamento = new Equipamento(nome, status, localizacao)
+    TestDataAndOperations.createEquipamento(equipamento, controlador)
     assert Equipamento.findByNome(nome).equals(Equipamento.findByStatus(status))
     assert Equipamento.findByNome(nome).equals(Equipamento.findByLocalizacao(localizacao))
 
@@ -48,24 +49,6 @@ Then(~/^o equipamento "([^"]*)" tem a localizacao alterada para "([^"]*)"$/) { S
 */
 
 
-Given(~/^eu criei os "([^"]*)" e "([^"]*)"$/) { String equipamento1, String equipamento2 ->
-   // to CreatePage
-  //  at CreatePage
 
-}
-
-And(~/^que estou na tela de "([^"]*)"$/) { String arg1 ->
-  //  to Visualizacao
-  //  at Visualizacao
-}
-
-When(~/^Seleciono a sala "([^"]*)"$/) { String arg1 ->
-    // Write code here that turns the phrase above into concrete actions
-
-}
-Then(~/^Eu consigo ver uma lista com todos os "([^"]*)" e "([^"]*)" que estao na localizacao "([^"]*)"$/) { String arg1, String arg2, String arg3 ->
-    // Write code here that turns the phrase above into concrete actions
-
-}
 
 
