@@ -5,6 +5,11 @@ import gerenciadeequipamentos.ArmazemController
 import gerenciadeequipamentos.Armazem
 import gerenciadeequipamentos.Equipamento
 import gerenciadeequipamentos.EquipamentoController
+import pages.CreateEquipamentoPage
+import pages.InsercaoPage
+import pages.ListagemArmazemPage
+import pages.ShowEquipamentoPage
+
 /**
  * Created by Walber on 19/06/2016.
  */
@@ -37,4 +42,37 @@ Given(~/^O sistema possui o armazem "([^"]*)" com lotacao completa$/) { String a
 }
 Then(~/^O sistema nao armazena o equipamento "([^"]*)"$/) { String equipamento->
     assert !Equipamento.findByNome(equipamento)
+}
+
+//teste de gui :D
+Given(~/^eu criei o armazem "([^"]*)" com apenas um espaco livre$/) { String armazem ->
+    to InsercaoPage
+    at InsercaoPage
+    TestDataAndOperations.createArmazem(armazem,0,1,controladorArmazem)
+
+}
+And(~/^eu estou na pagina de listagem de Armazens$/) { ->
+    to ListagemArmazemPage
+    at ListagemArmazemPage
+}
+And(~/^eu vejo que "([^"]*)" está livre$/) { String armazem ->
+    at ListagemArmazemPage
+    assert page.armazemTemVaga(armazem)
+}
+When(~/^eu navego ate a pagina de criacao de equipamentos$/) { ->
+    to CreateEquipamentoPage
+    at CreateEquipamentoPage
+}
+And(~/^Eu crio um novo equipamento "([^"]*)" com a localizacao "([^"]*)"$/) { String equipamento, localizacao ->
+    at CreateEquipamentoPage
+    assert page.criarEquipamento(equipamento, localizacao)
+
+}
+Then(~/^eu navego ate a listagem de Armazens$/) { ->
+    to ListagemArmazemPage
+    at ListagemArmazemPage
+}
+And(~/^Eu vejo que "([^"]*)" esta sendo sinalizado como cheio$/) { String armazem ->
+    at ListagemArmazemPage
+    assert page.armazemCheio(armazem)
 }

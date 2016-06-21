@@ -6,6 +6,8 @@ class Armazem {
     int lotacao
     boolean cheio
     static constraints = {
+        nome null: false
+        nome blank: false
 
     }
 

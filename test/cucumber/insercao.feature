@@ -13,3 +13,12 @@ Feature: Como um usuario do sistema eu ao adicionar novos equipamentos eu consig
     And O sistema nao possui o equipamento "Monitor"
     When Eu tento adicionar o equipamento "Monitor" com a localizacao "grad"
     Then O sistema nao armazena o equipamento "Monitor"
+
+   Scenario: Preenchimento de Armazem
+     Given eu criei o armazem "grad" com apenas um espaco livre
+     And eu estou na pagina de listagem de Armazens
+     And eu vejo que "grad" está livre
+     When eu navego ate a pagina de criacao de equipamentos
+     And Eu crio um novo equipamento "monitor" com a localizacao "grad"
+     Then eu navego ate a listagem de Armazens
+     And Eu vejo que "grad" esta sendo sinalizado como cheio
