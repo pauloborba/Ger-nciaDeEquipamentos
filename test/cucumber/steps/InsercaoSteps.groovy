@@ -21,7 +21,7 @@ def controladorArmazem = new ArmazemController();
 
 
 Given(~/^O sistema possui o armazem "([^"]*)" com lotacao incompleta$/) { String armazem ->
-    TestDataAndOperations.createArmazem(armazem,1, 10, controladorArmazem)
+    TestDataAndOperations.createArmazem(armazem,0, 10, controladorArmazem)
     assert !Armazem.findByNome(armazem).cheio
 }
 And(~/^O sistema nao possui o equipamento "([^"]*)"$/) { String equipamento ->

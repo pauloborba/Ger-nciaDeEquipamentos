@@ -19,9 +19,10 @@ class ArmazemController {
 
     //metoro para delecao de equipamento
     static def diminuiLotacao(String localizacao){
+        Armazem armazem = Armazem.findByNome(localizacao)
         //pega o tamanho de lotacao e decrementa em 1
-        Armazem.findByNome(localizacao).setLotacao(Armazem.findByNome(localizacao).getLotacao()-1)
-        Armazem.findByNome(localizacao).setCheio(false)
+        armazem.setLotacao(armazem.getLotacao()-1)
+        armazem.setCheio(false)
     }
 
     //metodo para verificar se o deposito dado esta cheio
@@ -38,25 +39,27 @@ class ArmazemController {
         }
     }
     static def boolean incrementaLotacao(String nome){
+        Armazem armazem = Armazem.findByNome(nome)
         //se a area util for menor que a lotacao, sinal que ja esta cheio e o problema vem desde a insercao do armazem
         //eu nao consegui produzir o validator na Domain sem bugar o sistema como na documentacao do grails por isso este passo eh necessario D:
-        if(Armazem.findByNome(nome).getAreaUtil()<= Armazem.findByNome(nome).getLotacao()) {
+        if(armazem.getAreaUtil()<= armazem.getLotacao()) {
             //resolvemos aqui o erro da insercao e deixamos tudo nos conformes para referencias futuras ao armazem :D
-            Armazem.findByNome(nome).setLotacao(Armazem.findByNome(nome).getAreaUtil())
-            Armazem.findByNome(nome).setCheio(true)
+            armazem.setLotacao(armazem.getAreaUtil())
+            armazem.setCheio(true)
             return true
         }
         //caso a lotacao seja menor que a area util, simplesmente adicionamos
         else {
-            Armazem.findByNome(nome).setLotacao(Armazem.findByNome(nome).getLotacao() + 1)
-            verificaLotacao(nome)
+            armazem.setLotacao(armazem.getLotacao() + 1)
+            verificaLotacao(armazem)
             return false
         }
     }
-    static def void verificaLotacao(String nome){
+    static def void verificaLotacao(Armazem armazem){
+
         //se seta o cheio pra true caso o ultimo equipamento tenha enchido o armazem
-        if(Armazem.findByNome(nome).getAreaUtil()== Armazem.findByNome(nome).getLotacao()) {
-           Armazem.findByNome(nome).setCheio(true)
+        if(armazem.getAreaUtil()== armazem.getLotacao()) {
+           armazem.setCheio(true)
         }
     }
 

@@ -52,10 +52,14 @@ class EquipamentoController {
             flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
             redirect(action: "show", id: equipamentoInstance.id)
         } else {
-            flash.message = message(code: 'Erro, localização inviável', args: [message(code: 'Equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
+            GeraMensagem(equipamentoInstance)
             render(view: "create", model: [equipamentoInstance: equipamentoInstance])
             return
         }
+    }
+
+    private void GeraMensagem(Equipamento equipamentoInstance) {
+        flash.message = message(code: 'Erro, localização inviável', args: [message(code: 'Equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
     }
 
     def edit(Equipamento equipamentoInstance) {
