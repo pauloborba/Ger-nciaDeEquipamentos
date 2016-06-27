@@ -22,6 +22,8 @@ environments {
     // run as “grails -Dgeb.env=firefox test-app”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
     firefox {
-        driver = { new FirefoxDriver() }
+        driver = { File file = new File("C:\\Users\\acab2\\Desktop\\chromedrivers\\chromedriver.exe"); //configurar com o enderço correto do chromedriver.
+            System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
+            new ChromeDriver(); }
     }
 }
