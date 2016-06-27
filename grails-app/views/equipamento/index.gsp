@@ -64,7 +64,7 @@
 				</thead>
 				<tbody>
 				<g:each in="${equipamentoInstanceList}" status="i" var="equipamentoInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr class='lista'}">
 					
 						<td><g:link action="show" id="${equipamentoInstance.id}">${fieldValue(bean: equipamentoInstance, field: "status")}</g:link></td>
 					

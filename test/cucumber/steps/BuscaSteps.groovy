@@ -50,5 +50,5 @@ When(~/^seleciono os atributos nos campos de nome, status, localizacao e solicit
 
 Then(~/^consigo ver a lista com o resultado da busca$/) { ->
    at IndexPage
-   //assert page.verify()
+   assert page.verify()
 }

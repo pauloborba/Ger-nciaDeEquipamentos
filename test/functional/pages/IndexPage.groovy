@@ -21,7 +21,7 @@ class IndexPage extends Page {
 
     boolean verify(){
         def var
-        if($("form").toList().isEmpty()){
+        if($("tr", class: "lista").has("a",text: null)){
             var = false
         } else{
             var = true
