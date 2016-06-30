@@ -1,5 +1,5 @@
 
-<%@ page import="gerenciadeequipamentos.Equipamento" %>
+<%@ page import="gerenciadeequipamentos.EquipamentoController; gerenciadeequipamentos.Equipamento" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -31,14 +31,9 @@
 					<input type="radio" name="status" value="descartado"> Descartado<br><br>
 
 					Localização:<br>
-					<select name="localizacao">
-						<option value=""></option>
-						<option value="grad1">Grad1</option>
-						<option value="grad2">Grad2</option>
-						<option value="grad3">Grad3</option>
-						<option value="grad4">Grad4</option>
-					</select>
+					<g:select name="localizacao" from="${Equipamento.getLocalizacoes()}" optionValue="nome" optionKey="nome" noSelection="['':'- - - - -']">
 
+					</g:select>
 				</fieldset>
 				<fieldset class="buttons">
 					<input type="submit" value="Buscar">

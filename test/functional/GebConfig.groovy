@@ -4,7 +4,7 @@ import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxProfile
 
 driver = {
-    File file = new File("C:\\Users\\acab2\\Desktop\\chromedrivers\\chromedriver.exe");
+    File file = new File("C:\\Users\\LFeli\\Documents\\ESS\\chromedriver.exe");
 
     System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
     new ChromeDriver();
@@ -14,7 +14,7 @@ environments {
     // run as “grails -Dgeb.env=chrome test-app”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
     chrome {
-        driver = { File file = new File("C:\\Users\\acab2\\Desktop\\chromedrivers\\chromedriver.exe"); //configurar com o enderço correto do chromedriver.
+        driver = { File file = new File("C:\\Users\\LFeli\\Documents\\ESS\\chromedriver.exe"); //configurar com o enderço correto do chromedriver.
             System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
             new ChromeDriver(); }
     }
@@ -22,7 +22,7 @@ environments {
     // run as “grails -Dgeb.env=firefox test-app”
     // See: http://code.google.com/p/selenium/wiki/FirefoxDriver
     firefox {
-        driver = { File file = new File("C:\\Users\\acab2\\Desktop\\chromedrivers\\chromedriver.exe"); //configurar com o enderço correto do chromedriver.
+        driver = { File file = new File("C:\\Users\\LFeli\\Documents\\ESS\\chromedriver.exe"); //configurar com o enderço correto do chromedriver.
             System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
             new ChromeDriver(); }
     }

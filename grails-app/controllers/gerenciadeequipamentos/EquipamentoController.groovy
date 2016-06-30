@@ -5,21 +5,30 @@ package gerenciadeequipamentos
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import gerenciadeequipamentos.Equipamento
-@Transactional(readOnly = true)
-class EquipamentoController {
+import gerenciadeequipamentos.ArmazemController
 
+@Transactional(readOnly = true)
+
+class EquipamentoController {
     static allowedMethods = [update: "PUT", delete: "DELETE"]
     // save: "POST" foi retirado porque dá problema com o cucumber, que
     // provavelmente simula a chamada dessa ação como um GET
 
-    def createEquipamento(String nome, String status, String localizacao){
 
-       // def equipamento = new Equipamento(nome: nome, status: status, localizacao: localizacao  )
-      //  equipamento.properties = params
-      //  equipamento.save()
+
+
+    def createEquipamento(String nome, String status, String localizacao){
+        //controlador.params << [nome: nome, status: status, localizacao: localizacao, lista: false]
+        //controlador.request.request.setContent(new byte[1000])
+        //controlador.create()
+        def equipamento = new Equipamento(nome: nome, status: status, localizacao: localizacao)
+        equipamento.properties = params
+        equipamento.save()
+
     }
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+        Equipamento.list(params).sort{it.data}
         respond Equipamento.list(params), model:[equipamentoInstanceCount: Equipamento.count()]
     }
 
@@ -33,14 +42,20 @@ class EquipamentoController {
 
     @Transactional
     def save() {
+
         def equipamentoInstance = new Equipamento(params)
-        if (!equipamentoInstance.save(flush: true)) {
+        if (!ArmazemController.verificaVagas(params.localizacao)) {
+            if (!equipamentoInstance.save(flush: true)) {
+                render(view: "create", model: [equipamentoInstance: equipamentoInstance])
+                return
+            }
             flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
             redirect(action: "show", id: equipamentoInstance.id)
+        } else {
+            flash.message = message(code: 'Erro, localização inviável', args: [message(code: 'Equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
+            render(view: "create", model: [equipamentoInstance: equipamentoInstance])
+            return
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'equipamento.label', default: 'Equipamento'), equipamentoInstance.id])
-        redirect(action: "show", id: equipamentoInstance.id)
     }
 
     def edit(Equipamento equipamentoInstance) {
@@ -77,7 +92,7 @@ class EquipamentoController {
             notFound()
             return
         }
-
+        ArmazemController.diminuiLotacao(equipamentoInstance.localizacao);
         equipamentoInstance.delete flush:true
 
         request.withFormat {
@@ -98,6 +113,19 @@ class EquipamentoController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def updateStatus(Equipamento equipamento, String status){
+        if(equipamento != null){
+            equipamento.setStatus(status)
+            equipamento.save(flush:true)
+            flash.message = "Success"
+            //render("overview")
+        }else {
+            flash.message = "Error"
+            //redirect(action: "overview")
+        }
+    }
+
     def resultados = []
 
     def buscaAvancada() {
@@ -165,6 +193,4 @@ class EquipamentoController {
             //redirect(action: "overview")
         }
     }
-
-
 }

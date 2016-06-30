@@ -29,3 +29,12 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: equipamentoInstance, field: 'data', 'error')} required">
+	<label for="data">
+		<g:message code="equipamento.data.label" default="Data" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:datePicker name="data" precision="day"  value="${equipamentoInstance?.data}"  />
+
+</div>
+

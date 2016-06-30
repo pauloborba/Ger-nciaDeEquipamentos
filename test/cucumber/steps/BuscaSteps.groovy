@@ -10,19 +10,19 @@ def result = []
 Given(~/^que o sistema possui equipamentos cadastrados$/) { ->
     def controlador = new EquipamentoController()
 
-    controlador.params << [nome:"monitor", status:"funcionando", localizacao:"grad2"]
+    controlador.params << [nome:"monitor", status:"funcionando", localizacao:"grad2", data:Date.parse("dd-MM-yyyy","06-07-2016")]
     controlador.save()
     controlador.response.reset()
 
-    controlador.params << [nome:"mouse", status:"defeituoso", localizacao:"grad2"]
+    controlador.params << [nome:"mouse", status:"defeituoso", localizacao:"grad2", data:Date.parse("dd-MM-yyyy","06-07-2016")]
     controlador.save()
     controlador.response.reset()
 
-    controlador.params << [nome:"mouse", status:"defeituoso", localizacao:"grad1"]
+    controlador.params << [nome:"mouse", status:"defeituoso", localizacao:"grad1", data:Date.parse("dd-MM-yyyy","06-07-2016")]
     controlador.save()
     controlador.response.reset()
 
-    controlador.params << [nome:"monitor", status:"defeituoso", localizacao:"grad2"]
+    controlador.params << [nome:"monitor", status:"defeituoso", localizacao:"grad2", data:Date.parse("dd-MM-yyyy","06-07-2016")]
     controlador.save()
     controlador.response.reset()
 
