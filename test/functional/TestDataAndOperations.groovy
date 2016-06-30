@@ -39,4 +39,17 @@ class TestDataAndOperations {
     static public void updateStatus(Equipamento equipamento, String novoStatus, EquipamentoController controlador){
         controlador.updateStatus(equipamento, novoStatus)
     }
+    static public void checkIfEquipamentoDoesExists(String nome) {
+
+        assert Equipamento.findByNome(nome)
+    }
+
+    static def EquipamentoBusca(String nome) {
+        def controlador = new EquipamentoController()
+        def lista = []
+        controlador.params.input1 = nome //preenche a entra com  onome
+        controlador.buscaEquipamento() //simula a busca
+        lista = controlador.getLista() //pega dados da lista
+        return lista
+    }
 }

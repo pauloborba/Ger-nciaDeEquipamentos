@@ -150,4 +150,37 @@ class EquipamentoController {
         }
         return equipamento
     }
+    def lista =[] //defini a lista
+    def buscaEquipamento(){
+        String nome = params.input1 //entrada do parametro de busca
+
+
+        lista = [] //lista da busca
+
+        Equipamento.list().each{it->
+
+            if(it.nome.startsWith(nome)){ //adiciona de acordo se contem ou inicia
+                lista.add(it)
+            }
+        };
+
+
+
+
+        if(lista.isEmpty()){  //verifica se a lista ta vazia
+            redirect(action: "index")
+            flash.message = "equipamento não encontrando"
+        }else{
+            redirect(action: "resultados")
+            flash.message = "equipamento encontrando"
+        }
+
+
+    }
+
+    def resultados(Integer max){ //constroi a pagina de resultados
+
+        params.max = Math.min(max ?: 10, 100)
+        respond lista, model:[equipamentoInstanceCount: Equipamento.count()]
+    }
 }
