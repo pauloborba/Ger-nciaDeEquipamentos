@@ -9,7 +9,7 @@ def result = []
 
 Given(~/^que o sistema possui equipamentos cadastrados$/) { ->
     def controlador = new EquipamentoController()
-    //oc
+
     controlador.params << [nome:"monitor", status:"funcionando", localizacao:"grad2", data:Date.parse("dd-MM-yyyy","06-07-2016")]
     controlador.save()
     controlador.response.reset()
